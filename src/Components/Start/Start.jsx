@@ -5,13 +5,12 @@ import styles from "./Start.module.scss";
 
 const Start = () => {
   const [amountCells, setAmountCells] = useState(0);
-  console.log(amountCells);
   const navigate = useNavigate();
 
   const list = [
     {
       id: 1,
-      text: "32",
+      text: "36",
     },
     {
       id: 2,
@@ -19,7 +18,7 @@ const Start = () => {
     },
     {
       id: 3,
-      text: "128",
+      text: "256",
     },
   ];
 
