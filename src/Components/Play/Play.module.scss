@@ -1,6 +1,5 @@
 $box: 30px;
 .wrapper {
-  @apply bg-slate-900 h-screen;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,8 +35,10 @@ $box: 30px;
   @apply bg-slate-300;
 }
 
-.bomb {
-  background-color: red;
+.game-end {
+  .bomb {
+    background-color: red;
+  }
 }
 
 .text {

@@ -1,8 +1,17 @@
 .wrapper {
-  @apply bg-slate-900 h-screen flex items-center justify-center flex-col;
+  @apply flex items-center justify-center flex-col;
 }
 
 .button {
   min-width: 100px;
   @apply bg-slate-500 border-2 rounded-lg p-2 border-slate-200 text-slate-200 font-semibold mt-4;
+}
+
+@media (max-width: 560px) {
+  .li2 {
+    @apply rounded-b-lg;
+  }
+  .li3 {
+    display: none;
+  }
 }
