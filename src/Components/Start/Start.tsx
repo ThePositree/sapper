@@ -1,8 +1,8 @@
 import cn from "classnames";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IListSelect } from "../../types/select-types";
-import { Select } from "../Select/Select";
+import { IListSelect } from "../../types/selectTypes";
+import { Select } from "../select/Select";
 import styles from "./Start.module.scss";
 
 export const Start = () => {

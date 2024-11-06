@@ -1,5 +1,4 @@
-import { cellOpen, ICell } from "./../../types/sapper-types";
-import { playingField } from "../../types/sapper-types";
+import { cellOpen, ICell, playingField } from "../../types/sapperTypes";
 
 const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): playingField => {
 	let numRows: 16 | 8 | 6 = 16;

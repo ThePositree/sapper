@@ -1,6 +1,6 @@
 import { Route, HashRouter as Router, Routes } from "react-router-dom";
-import { Play } from "./components/Play/Play";
-import { Start } from "./components/Start/Start";
+import { Play } from "./components/play/Play";
+import { Start } from "./components/start/Start";
 
 function App() {
 	return (

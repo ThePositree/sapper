@@ -1,10 +1,10 @@
-import { useState } from "react";
-import styles from "./Play.module.scss";
-import { useLocation } from "react-router-dom";
 import cn from "classnames";
-import { playingFieldFunc } from "./playingFieldFunc";
+import { useState } from "react";
 import { BsSuitHeart } from "react-icons/bs";
-import { ICell, playingField } from "../../types/sapper-types";
+import { useLocation } from "react-router-dom";
+import { ICell, playingField } from "../../types/sapperTypes";
+import styles from "./Play.module.scss";
+import { playingFieldFunc } from "./playingFieldFunc";
 
 export const Play = () => {
 	const location = useLocation();

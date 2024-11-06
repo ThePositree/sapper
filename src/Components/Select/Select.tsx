@@ -1,6 +1,6 @@
 import cn from "classnames";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { IListSelect } from "../../types/select-types";
+import { IListSelect } from "../../types/selectTypes";
 import styles from "./Select.module.scss";
 
 interface IProps {
