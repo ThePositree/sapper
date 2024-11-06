@@ -1,7 +1,6 @@
-import React from "react";
-import { Start } from "./components/Start/Start";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import { Play } from "./components/Play/Play";
+import { Start } from "./components/Start/Start";
 
 function App() {
   return (
