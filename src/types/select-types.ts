@@ -1,5 +1,5 @@
 export interface IListSelect {
-  id: number;
-  text: string;
-  style: string;
+	id: number;
+	text: string;
+	style: string;
 }

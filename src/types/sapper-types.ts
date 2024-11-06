@@ -1,10 +1,10 @@
 export interface ICell {
-  index: number;
-  row: number;
-  col: number;
-  isBomb: boolean;
-  isOpen: boolean;
-  numBombNearby: number;
+	index: number;
+	row: number;
+	col: number;
+	isBomb: boolean;
+	isOpen: boolean;
+	numBombNearby: number;
 }
 
 export type gameState = 0 | 1 | -1;

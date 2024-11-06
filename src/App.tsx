@@ -3,14 +3,14 @@ import { Play } from "./components/Play/Play";
 import { Start } from "./components/Start/Start";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route index element={<Start />} />
-        <Route path="/play" element={<Play />} />
-      </Routes>
-    </Router>
-  );
+	return (
+		<Router>
+			<Routes>
+				<Route index element={<Start />} />
+				<Route path="/play" element={<Play />} />
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;
