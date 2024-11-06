@@ -2,14 +2,14 @@ import cn from "classnames";
 import { useState } from "react";
 import { BsSuitHeart } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
-import { ICell, playingField } from "../../types/sapperTypes";
+import { ICell, PlayingField } from "../../types/sapperTypes";
 import styles from "./Play.module.scss";
-import { playingFieldFunc } from "./playingFieldFunc";
+import playingFieldFunc from "./playingFieldFunc";
 
-export const Play = () => {
+function Play() {
 	const location = useLocation();
 
-	let state: 36 | 64 | 256 = location.state;
+	let { state } = location;
 
 	if (!state) state = 64;
 
@@ -24,7 +24,7 @@ export const Play = () => {
 
 	const [firstPlayingField, setFirstPlayingField] = useState<ICell[] | false>(firstArrayCells);
 	const [gameState, setGameState] = useState<0 | 1 | -1>(0);
-	const [playingFieldState, setPlayingFieldState] = useState<playingField>();
+	const [playingFieldState, setPlayingFieldState] = useState<PlayingField>();
 
 	const objCnConditions = {
 		[styles["inner-1"]]: state === 36,
@@ -38,9 +38,9 @@ export const Play = () => {
 			const result = playingFieldFunc(state, cell.index);
 			const currentCell = result[0].find((item) => item.index === cell.index);
 			if (currentCell) {
-				const playingField = result[1](currentCell);
+				const newPlayingField = result[1](currentCell);
 				setFirstPlayingField(false);
-				setPlayingFieldState(playingField);
+				setPlayingFieldState(newPlayingField);
 			}
 		} else {
 			const result = playingFieldState![1](cell);
@@ -59,14 +59,14 @@ export const Play = () => {
 		if (cell.isOpen) {
 			if (cell.numBombNearby === 0) return "";
 			return cell.numBombNearby;
-		} else {
-			return <BsSuitHeart />;
 		}
+		return <BsSuitHeart />;
 	};
 
 	const playngFieldRender = () => {
 		const mapRender = (item: ICell, index: number) => (
 			<button
+				type="button"
 				className={cn(styles.cell, { [styles.open]: item.isOpen, [styles.bomb]: item.isBomb })}
 				key={index}
 				onClick={() => {
@@ -88,7 +88,7 @@ export const Play = () => {
 			<div className={cn(styles.wrapper, styles["game-end"])}>
 				{playngFieldRender()}
 				<div className={styles.text}>Win</div>
-				<button className={styles.button} onClick={resetGame}>
+				<button type="button" className={styles.button} onClick={resetGame}>
 					Restart
 				</button>
 			</div>
@@ -99,11 +99,13 @@ export const Play = () => {
 			<div className={cn(styles.wrapper, styles["game-end"])}>
 				{playngFieldRender()}
 				<div className={styles.text}>Lose</div>
-				<button className={styles.button} onClick={resetGame}>
+				<button type="button" className={styles.button} onClick={resetGame}>
 					Restart
 				</button>
 			</div>
 		);
 	}
 	return <div className={cn(styles.wrapper, "appearance")}>{playngFieldRender()}</div>;
-};
+}
+
+export default Play;

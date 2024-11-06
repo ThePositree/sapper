@@ -2,10 +2,10 @@ import cn from "classnames";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IListSelect } from "../../types/selectTypes";
-import { Select } from "../select/Select";
+import Select from "../select/Select";
 import styles from "./Start.module.scss";
 
-export const Start = () => {
+function Start() {
 	const [amountCells, setAmountCells] = useState<36 | 64 | 256>(36);
 	const navigate = useNavigate();
 
@@ -36,8 +36,9 @@ export const Start = () => {
 
 	return (
 		<div className={cn(styles.wrapper, "appearance")}>
-			<Select placeholder={"Select number of cells"} list={list} handleClick={selectAmountCells} />
+			<Select placeholder="Select number of cells" list={list} handleClick={selectAmountCells} />
 			<button
+				type="button"
 				className={styles.button}
 				onClick={() => {
 					navigate("/play", {
@@ -49,4 +50,6 @@ export const Start = () => {
 			</button>
 		</div>
 	);
-};
+}
+
+export default Start;

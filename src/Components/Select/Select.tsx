@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IListSelect } from "../../types/selectTypes";
 import styles from "./Select.module.scss";
 
@@ -9,7 +9,7 @@ interface IProps {
 	handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Select: FC<IProps> = ({ placeholder, list, handleClick }) => {
+function Select({ placeholder, list, handleClick }: IProps) {
 	const [active, setActive] = useState(false);
 	const [textButton, setTextButton] = useState("");
 
@@ -49,18 +49,19 @@ export const Select: FC<IProps> = ({ placeholder, list, handleClick }) => {
 
 	return (
 		<div
-			onClick={(e) => {
-				e.stopPropagation();
-			}}
-			className={cn(styles.container, { [styles["active"]]: active })}
+			onClick={(e) => e.stopPropagation()}
+			onKeyDown={() => {}}
+			role="button"
+			className={cn(styles.container, { [styles.active]: active })}
+			tabIndex={0}
 		>
-			<button ref={button} className={styles.button} onClick={toggleDropDownStatus}>
-				{textButton ? textButton : placeholder || "Select..."}
+			<button type="button" ref={button} className={styles.button} onClick={toggleDropDownStatus}>
+				{textButton || placeholder || "Select..."}
 			</button>
 			<ul className={styles.ul}>
 				{list.map((item) => (
 					<li key={item.id} className={cn(styles.li, item.style)}>
-						<button className={styles["item-button"]} onClick={clickListItem}>
+						<button type="button" className={styles["item-button"]} onClick={clickListItem}>
 							{item.text}
 						</button>
 					</li>
@@ -68,4 +69,6 @@ export const Select: FC<IProps> = ({ placeholder, list, handleClick }) => {
 			</ul>
 		</div>
 	);
-};
+}
+
+export default Select;

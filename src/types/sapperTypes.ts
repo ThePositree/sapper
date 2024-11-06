@@ -7,8 +7,8 @@ export interface ICell {
 	numBombNearby: number;
 }
 
-export type gameState = 0 | 1 | -1;
+export type GameState = 0 | 1 | -1;
 
-export type playingField = [ICell[], cellOpen, gameState];
+export type PlayingField = [ICell[], CellOpen, GameState];
 
-export type cellOpen = (cell: ICell) => playingField;
+export type CellOpen = (cell: ICell) => PlayingField;

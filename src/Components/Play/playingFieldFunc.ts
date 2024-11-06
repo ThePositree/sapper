@@ -1,6 +1,6 @@
-import { cellOpen, ICell, playingField } from "../../types/sapperTypes";
+import { CellOpen, ICell, PlayingField } from "../../types/sapperTypes";
 
-const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): playingField => {
+const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): PlayingField => {
 	let numRows: 16 | 8 | 6 = 16;
 
 	if (amountCells === 64) numRows = 8;
@@ -19,7 +19,7 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 		numBombNearby: 0
 	};
 
-	const numbCellsToOpenNearby: number = (function () {
+	const numbCellsToOpenNearby: number = (() => {
 		if (amountCells === 36) return randomElemFromArray<number>([0, 1, 2, 3]);
 		if (amountCells === 64) return randomElemFromArray<number>([0, 1, 2, 3, 4, 5, 6]);
 		if (amountCells === 256) return randomElemFromArray<number>([0, 1, 2, 3, 5, 6, 7, 8, 9]);
@@ -72,7 +72,7 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 		cellsForStart.push(newCell);
 	}
 
-	const arrayIndexBombs = (function () {
+	const arrayIndexBombs = (() => {
 		let arr = [...Array(amountCells).keys()].sort(() => Math.random() - 0.5);
 		for (let i = 0; i < cellsForStart.length; i++) {
 			const indexForSlice = cellsForStart[i].index;
@@ -100,14 +100,12 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 		};
 		if (isBomb) {
 			numBombNearby = -1;
-			const nearbyCells = getNearbyCells(cell);
-			nearbyCells.forEach((item) => {
-				if (!item.isBomb) item.numBombNearby++;
-			});
+			getNearbyCells(cell).map((item) => ({
+				...item,
+				numBombNearby: !item.isBomb ? item.numBombNearby + 1 : item.numBombNearby
+			}));
 		} else {
-			const nearbyCells = getNearbyCells(cell);
-
-			nearbyCells.forEach((element) => {
+			getNearbyCells(cell).forEach((element) => {
 				if (element.isBomb) {
 					numBombNearby++;
 				}
@@ -122,13 +120,13 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 	const checkedCells: ICell[] = [];
 
 	for (const cell of arrayCells) {
-		const checkedCell = checkedCells.find((item) => item.index === cell.index);
+		let checkedCell = checkedCells.find((item) => item.index === cell.index);
 		if (checkedCell) continue;
 		let bombNearby = 0;
 		checkedCells.push(cell);
 		const nearbyCells = getNearbyCells(cell);
 		for (const nearbyCell of nearbyCells) {
-			const checkedCell = checkedCells.find((item) => item.index === nearbyCell.index);
+			checkedCell = checkedCells.find((item) => item.index === nearbyCell.index);
 			if (checkedCell) continue;
 			if (nearbyCell.isBomb) bombNearby++;
 		}
@@ -139,7 +137,7 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 		}
 	}
 
-	const openCell: cellOpen = (cell) => {
+	const openCell: CellOpen = (propCell) => {
 		const openNearbyCells = (arrCells: ICell[]) => {
 			for (const cell of arrCells) {
 				if (cell.isOpen) continue;
@@ -153,15 +151,16 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 			}
 		};
 
-		if (cell.isOpen) return [arrayCells, openCell, 0];
+		if (propCell.isOpen) return [arrayCells, openCell, 0];
 
-		cell.isOpen = true;
+		// eslint-disable-next-line no-param-reassign
+		propCell.isOpen = true;
 
-		if (cell.isBomb) return [arrayCells, openCell, -1];
+		if (propCell.isBomb) return [arrayCells, openCell, -1];
 
 		let win = false;
 
-		const nearbyCells = getNearbyCells(cell);
+		const nearbyCells = getNearbyCells(propCell);
 
 		openNearbyCells(nearbyCells);
 
@@ -184,4 +183,4 @@ const playingFieldFunc = (amountCells: 36 | 64 | 256, firstNumber: number): play
 	return [arrayCells, openCell, 0];
 };
 
-export { playingFieldFunc };
+export default playingFieldFunc;
